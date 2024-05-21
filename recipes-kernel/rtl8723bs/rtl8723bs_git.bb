@@ -9,7 +9,7 @@ inherit module
 SRCREV = "e749183f663009c5bd21767153ab1f9911283824"
 
 SRC_URI = " \
-    git://github.com/joelguittet/rtl8723bs.git;protocol=git;branch=chip/stable \
+    git://github.com/joelguittet/rtl8723bs.git;protocol=https;branch=chip/stable \
     file://autoconf.h.patch \
 "
 
