@@ -14,6 +14,9 @@ KERNEL_VERSION_SANITY_SKIP = "1"
 SRC_URI += " \
     git://github.com/joelguittet/chip-linux.git;protocol=https;branch=nextthing/4.4/chip \
     file://defconfig \
+    file://0001-scripts-dtc-Remove-redundant-YYLOC-global-declaration.patch \
+    file://0002-Fix-compilation-with-gcc-8.patch \
+    file://0003-give-up-on-gcc-ilog2-constant-optimizations.patch \
 "
 
 LINUX_VERSION ?= "4.4"
