@@ -9,6 +9,7 @@ inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
 SRCREV ?= "bce5de1cdc3667a2bc454219a0856b4f415b33f5"
+KERNEL_VERSION_SANITY_SKIP = "1"
 
 SRC_URI += " \
     git://github.com/joelguittet/chip-linux.git;protocol=https;branch=nextthing/4.4/chip \
