@@ -1,9 +1,9 @@
 # Customization of init-ifupdown
 
 # Files directory
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Sources
-SRC_URI_append = " \
+SRC_URI:append = " \
     file://interfaces \
 "

@@ -24,7 +24,7 @@ do_compile () {
   oe_runmake osgi_build_arm
 }
 
-do_install_append () {
+do_install:append () {
   install -d ${D}/lib
   install -d ${D}${ROOT_HOME}
   install -d ${D}/usr/share/java

@@ -41,7 +41,7 @@ SUNXI_SPL_BINARY = "${SUNXI_SPL_IMAGE}.bin"
 UBOOT_DTB_IMAGE = "u-boot-dtb"
 UBOOT_DTB_BINARY = "${UBOOT_DTB_IMAGE}.bin"
 
-do_install_append() {
+do_install:append() {
 
     # Install sunxi-spl
     install ${S}/spl/${SUNXI_SPL_BINARY} ${D}/boot/${SUNXI_SPL_IMAGE}-${PV}-${PR}
@@ -52,7 +52,7 @@ do_install_append() {
     ln -sf ${UBOOT_DTB_IMAGE}-${PV}-${PR} ${D}/boot/${UBOOT_DTB_BINARY}
 }
 
-do_deploy_append() {
+do_deploy:append() {
 
     # Deploy sunxi-spl
     install ${S}/spl/${SUNXI_SPL_BINARY} ${DEPLOYDIR}/${SUNXI_SPL_IMAGE}-${PV}-${PR}
