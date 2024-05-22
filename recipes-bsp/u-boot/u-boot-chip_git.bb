@@ -8,8 +8,6 @@ RPROVIDES_${PN} = "u-boot"
 
 DEPENDS += "dtc-native"
 
-LICENSE = "GPLv2"
-
 LIC_FILES_CHKSUM = " \
     file://Licenses/Exceptions;md5=338a7cb1e52d0d1951f83e15319a3fe7 \
     file://Licenses/bsd-2-clause.txt;md5=6a31f076f5773aabd8ff86191ad6fdd5 \
