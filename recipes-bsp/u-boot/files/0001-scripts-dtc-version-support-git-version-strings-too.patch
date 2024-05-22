@@ -1,0 +1,38 @@
+From b198bdb7cb3f8c50e6544e51e0325a13d03a699f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Martin=20Hundeb=C3=B8ll?= <martin@geanix.com>
+Date: Wed, 3 May 2023 12:23:39 +0200
+Subject: [PATCH 1/5] scripts: dtc-version: support git version strings too
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Building dtc from git causes the version number to start with a 'v'
+(e.g. v1.7.0). printf then fails to parse 'v1' as a decimal value, and
+prints '000700' instead of '010700'. Subsequently, the build fails,
+because '000700' is less than the required '010400' version.
+
+Signed-off-by: Martin Hundebøll <martin@geanix.com>
+---
+ scripts/dtc-version.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/dtc-version.sh b/scripts/dtc-version.sh
+index e8c94d390b..00838a6ad8 100755
+--- a/scripts/dtc-version.sh
++++ b/scripts/dtc-version.sh
+@@ -14,7 +14,7 @@ if [ ${#dtc} -eq 0 ]; then
+ 	exit 1
+ fi
+ 
+-MAJOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 1)
++MAJOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 1 | tr -d v)
+ MINOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 2)
+ 
+ printf "%02d%02d\\n" $MAJOR $MINOR
+-- 
+2.39.2
+

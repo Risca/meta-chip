@@ -1,0 +1,103 @@
+From bc9d3472546da0e788f73114dabdf5f786ce4a71 Mon Sep 17 00:00:00 2001
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Date: Sun, 21 Jan 2018 19:19:15 +0900
+Subject: [PATCH 2/5] tools: include necessary headers explicitly
+
+Several host-tools use "bool" type without including <stdbool.h>.
+This relies on the crappy header inclusion chain.
+
+tools/Makefile has the following line:
+
+  HOST_EXTRACFLAGS += -include $(srctree)/include/libfdt_env.h \
+
+All host-tools are forced to include libfdt_env.h even if they are
+totally unrelated to FDT.  Then, <stdbool.h> is indirectly included
+as follows:
+
+     include/libfdt_env.h
+  -> include/linux/types.h
+  -> <stdbool.h>
+
+I am fixing this horrible crap.  In advance, I need to add necessary
+include directives explicitly.  tools/fdtgrep.c needs more; <fctl.h>
+for open() and <errno.h> for errno.
+
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+Reviewed-by: Joe Hershberger <joe.hershberger@ni.com>
+Reviewed-by: Simon Glass <sjg@chromium.org>
+---
+ tools/fdtgrep.c      | 5 ++++-
+ tools/gen_eth_addr.c | 1 +
+ tools/ifdtool.c      | 3 ++-
+ tools/imagetool.h    | 1 +
+ 4 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/tools/fdtgrep.c b/tools/fdtgrep.c
+index 67aa41a24d..20f1b7f22f 100644
+--- a/tools/fdtgrep.c
++++ b/tools/fdtgrep.c
+@@ -10,13 +10,16 @@
+ 
+ #include <assert.h>
+ #include <ctype.h>
++#include <errno.h>
+ #include <getopt.h>
++#include <fcntl.h>
++#include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ 
+-#include <../include/libfdt.h>
++#include <../include/linux/libfdt.h>
+ #include <libfdt_internal.h>
+ 
+ /* Define DEBUG to get some debugging output on stderr */
+diff --git a/tools/gen_eth_addr.c b/tools/gen_eth_addr.c
+index 5fa3e0cf56..84fd875e40 100644
+--- a/tools/gen_eth_addr.c
++++ b/tools/gen_eth_addr.c
+@@ -5,6 +5,7 @@
+  * SPDX-License-Identifier:	GPL-2.0+
+  */
+ 
++#include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+diff --git a/tools/ifdtool.c b/tools/ifdtool.c
+index 48059c02b5..c70e541830 100644
+--- a/tools/ifdtool.c
++++ b/tools/ifdtool.c
+@@ -12,13 +12,14 @@
+ #include <assert.h>
+ #include <fcntl.h>
+ #include <getopt.h>
++#include <stdbool.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#include <libfdt.h>
++#include <linux/libfdt.h>
+ #include "ifdtool.h"
+ 
+ #undef DEBUG
+diff --git a/tools/imagetool.h b/tools/imagetool.h
+index ad2deb58dc..0cb15ba931 100644
+--- a/tools/imagetool.h
++++ b/tools/imagetool.h
+@@ -12,6 +12,7 @@
+ #include "os_support.h"
+ #include <errno.h>
+ #include <fcntl.h>
++#include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-- 
+2.39.2
+

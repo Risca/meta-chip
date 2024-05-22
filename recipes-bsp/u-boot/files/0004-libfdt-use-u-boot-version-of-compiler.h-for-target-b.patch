@@ -1,0 +1,35 @@
+From a908b86781163788f10e6732484a321fa10c14d5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Patrik=20Dahlstr=C3=B6m?= <risca@dalakolonin.se>
+Date: Wed, 22 May 2024 02:12:55 +0000
+Subject: [PATCH 4/5] libfdt: use u-boot version of compiler.h for target
+ builds
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The linux/compiler.h header doesn't define uintptr_t.
+
+Signed-off-by: Patrik Dahlström <risca@dalakolonin.se>
+---
+ include/linux/libfdt_env.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/include/linux/libfdt_env.h b/include/linux/libfdt_env.h
+index 273b5d30f8..9d5838d163 100644
+--- a/include/linux/libfdt_env.h
++++ b/include/linux/libfdt_env.h
+@@ -9,7 +9,11 @@
+ #ifndef _LIBFDT_ENV_H
+ #define _LIBFDT_ENV_H
+ 
++#ifdef USE_HOSTCC
+ #include "compiler.h"
++#else
++#include <compiler.h>
++#endif
+ #include "linux/types.h"
+ 
+ extern struct fdt_header *working_fdt;  /* Pointer to the working fdt */
+-- 
+2.39.2
+

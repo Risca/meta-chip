@@ -26,6 +26,11 @@ SRCREV = "c2d284fbba74083eed8ae853a10f665f6febfdf1"
 
 SRC_URI = " \
     git://github.com/joelguittet/chip-u-boot.git;protocol=https;branch=nextthing/2016.01/next \
+    file://0001-scripts-dtc-version-support-git-version-strings-too.patch \
+    file://0002-tools-include-necessary-headers-explicitly.patch \
+    file://0003-libfdt-move-headers-to-linux-libfdt.h-and-linux-libf.patch \
+    file://0004-libfdt-use-u-boot-version-of-compiler.h-for-target-b.patch \
+    file://0005-Add-target-to-generate-initial-environment.patch \
 "
 
 UBOOT_VERSION ?= "2016.01"
