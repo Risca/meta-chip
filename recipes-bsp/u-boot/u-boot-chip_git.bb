@@ -1,5 +1,6 @@
 DESCRIPTION="U-Boot port for C.H.I.P boards"
 
+require recipes-bsp/u-boot/u-boot-common.inc
 require recipes-bsp/u-boot/u-boot.inc
 
 DEPENDS += "dtc-native"
@@ -49,21 +50,21 @@ UBOOT_DTB_BINARY = "${UBOOT_DTB_IMAGE}.bin"
 do_install:append() {
 
     # Install sunxi-spl
-    install ${S}/spl/${SUNXI_SPL_BINARY} ${D}/boot/${SUNXI_SPL_IMAGE}-${PV}-${PR}
+    install ${B}/spl/${SUNXI_SPL_BINARY} ${D}/boot/${SUNXI_SPL_IMAGE}-${PV}-${PR}
     ln -sf ${SUNXI_SPL_IMAGE}-${PV}-${PR} ${D}/boot/${SUNXI_SPL_BINARY}
 
     # Install u-boot-dtb
-    install ${S}/${UBOOT_DTB_BINARY} ${D}/boot/${UBOOT_DTB_IMAGE}-${PV}-${PR}
+    install ${B}/${UBOOT_DTB_BINARY} ${D}/boot/${UBOOT_DTB_IMAGE}-${PV}-${PR}
     ln -sf ${UBOOT_DTB_IMAGE}-${PV}-${PR} ${D}/boot/${UBOOT_DTB_BINARY}
 }
 
 do_deploy:append() {
 
     # Deploy sunxi-spl
-    install ${S}/spl/${SUNXI_SPL_BINARY} ${DEPLOYDIR}/${SUNXI_SPL_IMAGE}-${PV}-${PR}
+    install ${B}/spl/${SUNXI_SPL_BINARY} ${DEPLOYDIR}/${SUNXI_SPL_IMAGE}-${PV}-${PR}
     ln -sf ${SUNXI_SPL_IMAGE}-${PV}-${PR} ${DEPLOYDIR}/${SUNXI_SPL_BINARY}
 
     # Deploy u-boot-dtb
-    install ${S}/${UBOOT_DTB_BINARY} ${DEPLOYDIR}/${UBOOT_DTB_IMAGE}-${PV}-${PR}
+    install ${B}/${UBOOT_DTB_BINARY} ${DEPLOYDIR}/${UBOOT_DTB_IMAGE}-${PV}-${PR}
     ln -sf ${UBOOT_DTB_IMAGE}-${PV}-${PR} ${DEPLOYDIR}/${UBOOT_DTB_BINARY}
 }
