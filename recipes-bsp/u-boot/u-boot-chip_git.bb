@@ -3,6 +3,9 @@ DESCRIPTION="U-Boot port for C.H.I.P boards"
 require recipes-bsp/u-boot/u-boot-common.inc
 require recipes-bsp/u-boot/u-boot.inc
 
+PROVIDES += "u-boot"
+RPROVIDES_${PN} = "u-boot"
+
 DEPENDS += "dtc-native"
 
 LICENSE = "GPLv2"
