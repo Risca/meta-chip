@@ -1,0 +1,63 @@
+From c49733e4054f2c3210da5bbc00e6f9ebdede7b4a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Patrik=20Dahlstr=C3=B6m?= <risca@dalakolonin.se>
+Date: Fri, 24 May 2024 16:40:43 +0000
+Subject: [PATCH] libuboot_env: handle MLC NAND the same as regular NAND
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Placing u-boot environment in raw MLC NAND may be a bad idea for
+reliability, but that haven't stopped anyone before.
+
+Signed-off-by: Patrik Dahlström <risca@dalakolonin.se>
+---
+ src/uboot_env.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/uboot_env.c b/src/uboot_env.c
+index 30c39eb..8d2636d 100644
+--- a/src/uboot_env.c
++++ b/src/uboot_env.c
+@@ -368,7 +368,8 @@ static int check_env_device(struct uboot_ctx *ctx, struct uboot_flash_env *dev)
+ 		if (dev->device_type == DEVICE_MTD) {
+ 			ret = ioctl(fd, MEMGETINFO, &dev->mtdinfo);
+ 			if (ret < 0 || (dev->mtdinfo.type != MTD_NORFLASH &&
+-					dev->mtdinfo.type != MTD_NANDFLASH)) {
++					dev->mtdinfo.type != MTD_NANDFLASH &&
++					dev->mtdinfo.type != MTD_MLCNANDFLASH)) {
+ 				close(fd);
+ 				return -EBADF;
+ 			}
+@@ -388,6 +389,7 @@ static int check_env_device(struct uboot_ctx *ctx, struct uboot_flash_env *dev)
+ 			dev->flagstype = FLAGS_BOOLEAN;
+ 			break;
+ 		case MTD_NANDFLASH:
++		case MTD_MLCNANDFLASH:
+ 			dev->flagstype = FLAGS_INCREMENTAL;
+ 		};
+ 		break;
+@@ -439,7 +441,7 @@ static bool check_compatible_devices(struct uboot_ctx *ctx)
+ static int is_nand_badblock(struct uboot_flash_env *dev, loff_t start)
+ {
+ 	int bad;
+-	if (dev->mtdinfo.type != MTD_NANDFLASH)
++	if (!mtd_type_is_nand_user(&dev->mtdinfo))
+ 		return 0;
+ 	bad = ioctl(dev->fd, MEMGETBADBLOCK, &start);
+ 	return bad;
+@@ -497,6 +499,7 @@ static int mtdread(struct uboot_flash_env *dev, void *data)
+ 		ret = read(dev->fd, data, dev->envsize);
+ 		break;
+ 	case MTD_NANDFLASH:
++	case MTD_MLCNANDFLASH:
+ 		if (dev->offset)
+ 			if (lseek(dev->fd, dev->offset, SEEK_SET) < 0) {
+ 				ret = -EIO;
+@@ -707,6 +710,7 @@ static int mtdwrite(struct uboot_flash_env *dev, void *data)
+ 	switch (dev->mtdinfo.type) {
+ 	case MTD_NORFLASH:
+ 	case MTD_NANDFLASH:
++	case MTD_MLCNANDFLASH:
+ 		count = dev->envsize;
+ 		start = dev->offset;
+ 		blocksize = dev->envsize;

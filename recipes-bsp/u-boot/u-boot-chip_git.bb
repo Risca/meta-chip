@@ -33,6 +33,7 @@ SRC_URI = " \
     file://0003-libfdt-move-headers-to-linux-libfdt.h-and-linux-libf.patch \
     file://0004-libfdt-use-u-boot-version-of-compiler.h-for-target-b.patch \
     file://0005-Add-target-to-generate-initial-environment.patch \
+    file://0006-add_mlc_nand_support.patch \
 "
 
 UBOOT_VERSION ?= "2016.01"
