@@ -2,8 +2,8 @@ SUMMARY = "OpenJDK DIO"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=dd439af477363980bb4b16ba062876cc"
 
-DEPENDS_${PN} = "openjdk-7-jre"
-RDEPENDS_${PN} = "openjdk-7-jre"
+DEPENDS = "openjdk-7-jre"
+RDEPENDS:${PN} = "openjdk-7-jre"
 
 do_compile[depends] = "openjdk-7-jre:do_populate_sysroot"
 
@@ -33,7 +33,7 @@ do_install:append () {
   install -m 0644 ${WORKDIR}/master/build/jar/dio.jar ${D}/usr/share/java/dio.jar
 }
 
-FILES_${PN} = " \
+FILES:${PN} = " \
   /lib/libdio.so \
   ${ROOT_HOME}/java.policy \
   /usr/share/java/dio.jar \

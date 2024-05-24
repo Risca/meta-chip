@@ -4,14 +4,14 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-RDEPENDS_${PN}_chip = " \
+RDEPENDS:${PN}:chip = " \
   packagegroup-base-wifi \
   rtl8723bs \
   dhcp-client \
   crda \
 "
 
-RDEPENDS_${PN}_chip-pro = " \
+RDEPENDS:${PN}:chip-pro = " \
   packagegroup-base-wifi \
   rtl8723ds \
   dhcp-client \

@@ -34,14 +34,14 @@ do_install () {
     install *.h ${D}${includedir}/libhwsunxi
 }
 
-FILES_${PN} = " \
+FILES:${PN} = " \
     ${libdir}/*.so \
 "
 
-FILES_${PN}-dev += " \
+FILES:${PN}-dev += " \
     ${includedir}/libhwsunxi/*.h \
 "
 
-FILES_${PN}-staticdev += " \
+FILES:${PN}-staticdev += " \
     ${libdir}/*.a \
 "

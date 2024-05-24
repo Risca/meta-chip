@@ -4,7 +4,7 @@ require recipes-bsp/u-boot/u-boot-common.inc
 require recipes-bsp/u-boot/u-boot.inc
 
 PROVIDES += "u-boot"
-RPROVIDES_${PN} = "u-boot"
+RPROVIDES:${PN} = "u-boot"
 
 DEPENDS += "dtc-native"
 
