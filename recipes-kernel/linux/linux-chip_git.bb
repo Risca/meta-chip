@@ -18,6 +18,8 @@ SRC_URI += " \
     file://0001-scripts-dtc-Remove-redundant-YYLOC-global-declaration.patch \
     file://0002-Fix-compilation-with-gcc-8.patch \
     file://0003-give-up-on-gcc-ilog2-constant-optimizations.patch \
+    file://0004-Compiler-Attributes-add-support-for-__copy-gcc-9.patch \
+    file://0005-include-linux-module.h-copy-__init-__exit-attrs-to-i.patch \
 "
 
 LINUX_VERSION ?= "4.4"
