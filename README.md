@@ -86,7 +86,7 @@ Get and build sunxi tools:
 
 Get C.H.I.P. tools:
 
-	git clone https://github.com/joelguittet/chip-tools ~/yocto/chip-tools
+	git clone https://github.com/risca/chip-tools ~/yocto/chip-tools
 
 Update udev rules:
 
