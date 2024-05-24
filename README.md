@@ -161,7 +161,7 @@ Then start the target in FEL mode (put a jumper between the FEL pin and GND and 
 Flash the target:
 
 	cd ~/yocto/chip-tools/
-	sudo ./chip-flash-chip.sh ~/yocto/images
+	./chip-flash-chip.sh ~/yocto/images
 
 Logs are displayed on the serial console interface (UART1) of the target to check the progression and the verification of the flashing procedure.
 
