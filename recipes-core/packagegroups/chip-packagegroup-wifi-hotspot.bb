@@ -9,7 +9,7 @@ RDEPENDS:${PN}_chip = " \
   rtl8723bs \
   hostapd \
   dnsmasq \
-  crda \
+  wireless-regdb \
 "
 
 RDEPENDS:${PN}_chip-pro = " \
@@ -17,5 +17,5 @@ RDEPENDS:${PN}_chip-pro = " \
   rtl8723ds \
   hostapd \
   dnsmasq \
-  crda \
+  wireless-regdb \
 "

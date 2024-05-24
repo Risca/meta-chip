@@ -8,12 +8,12 @@ RDEPENDS:${PN}:chip = " \
   packagegroup-base-wifi \
   rtl8723bs \
   dhcp-client \
-  crda \
+  wireless-regdb \
 "
 
 RDEPENDS:${PN}:chip-pro = " \
   packagegroup-base-wifi \
   rtl8723ds \
   dhcp-client \
-  crda \
+  wireless-regdb \
 "
