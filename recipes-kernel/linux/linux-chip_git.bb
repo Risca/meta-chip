@@ -6,6 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 COMPATIBLE_MACHINE = "chip|chip-pro"
 
 inherit kernel
+inherit kernel_wireless_regdb
 require recipes-kernel/linux/linux-yocto.inc
 
 SRCREV ?= "bce5de1cdc3667a2bc454219a0856b4f415b33f5"
