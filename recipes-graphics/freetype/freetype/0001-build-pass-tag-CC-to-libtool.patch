@@ -1,0 +1,28 @@
+From 3dd821c7dcc7b97bac05e165867c5d385d1fe240 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Patrik=20Dahlstr=C3=B6m?= <risca@dalakolonin.se>
+Date: Sat, 8 Jun 2024 11:52:03 +0000
+Subject: [PATCH] build: pass --tag=CC to libtool
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This seems to be necessary on some newer versions of libtool.
+
+Signed-off-by: Patrik Dahlström <risca@dalakolonin.se>
+---
+ builds/unix/unix-cc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/builds/unix/unix-cc.in b/builds/unix/unix-cc.in
+index 89be450..3c9e8ac 100644
+--- a/builds/unix/unix-cc.in
++++ b/builds/unix/unix-cc.in
+@@ -95,7 +95,7 @@ ANSIFLAGS := @XX_ANSIFLAGS@
+ # libtool call is always prepended.
+ #
+ CCraw       := $(CC)
+-override CC := $(LIBTOOL) --mode=compile $(CCraw)
++override CC := $(LIBTOOL) --tag=CC --mode=compile $(CCraw)
+ 
+ # Resource compiler to use on Cygwin/MinGW, usually windres.
+ #
